@@ -21,7 +21,7 @@ public class PatrolBoat {
 		this.size = size;
 	}
 	public int getPatrolBoatX() {
-		return patrolBoatX;
+		return patrolBoatX; 
 	}
 	public void setPatrolBoatX(int patrolBoatX) {
 		this.patrolBoatX = patrolBoatX;

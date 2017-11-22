@@ -1,58 +1,58 @@
 import java.util.Scanner;
 
 public class BattleshipMain {
+	Player player1 = new Player();
+	Player player2 = new Player();
 
 	public static void main(String[] args) {
-
-		Player player1 = new Player();
-		Player player2 = new Player();
-		BattleshipMain bsMain = new BattleshipMain();
-		
+		BattleshipMain m = new BattleshipMain();
 		BattleshipMap map1 = new BattleshipMap();
+		BattleshipMap map2 = new BattleshipMap();
+
 		map1.populateMap();
 
-		BattleshipMap map2 = new BattleshipMap();
 		map2.populateMap();
 		Scanner in = new Scanner(System.in);
-		
+
 		System.out.println("Player 1, assign your positions");
-		bsMain.playerSetup(player1, map1);
+		m.player1.playerSetup(map1);
 		System.out.println("Prepare for battle ships, player 1!");
-		
+
 		System.out.println("Player 2, assign your positions");
-		bsMain.playerSetup(player2, map2);
+		m.player2.playerSetup(map2);
 		System.out.println("Prepare for battle ships, player 2!");
-		
+
 		map1.populateMap();
 		System.out.println("");
 		map2.populateMap();
-		
-	}
 
-	private void playerSetup(Player player1, BattleshipMap map) {
-		Scanner in = new Scanner(System.in);
-		int x = 0;
-		int y = 0;
+		PlayGame game = new PlayGame();
 
-		System.out.println("Please enter the coordinates for your tail end of your patrol boat unit:");
-		System.out.println("Enter X co-ordinate value (0-2)");
-		x = in.nextInt();
-		System.out.println("Enter Y co-ordinate value (0-2)");
-		y = in.nextInt();
-
-		player1.setPatrolBoat(map, x, y);
-
-		System.out.println("Enter the alignment for the boat (up,down,left,right):");
 		
+		boolean check = true;
 		
-		do {
-		// Run this while check bounds is fine
-		player1.setPatrolBoatSecondPoint(in.next(), map);
-		
+		while (true) {
+			
+			if (check) {
+				System.out.println("player 1 turn");
+				
+				if(game.checkHit(m.player1, map2)) {
+					check = !check;
+				}
+				check = !check;
+			}
+			else {
+				System.out.println("player 2 turn");
+				
+				if (game.checkHit(m.player2, map1)) {
+					check = !check;
+				}
+				check = !check;
+			}
+			
 		}
-		while (player1.checkBounds(map, x, y) == false);
-		
-		in.close();
 	}
-	
+
+
+
 }
